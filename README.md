@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lexora of Singapore — Web Intern Test Case
+
+Implementation of the Lexora of Singapore homepage mockup with a live News carousel powered by The Guardian API.
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **API**: The Guardian Open Platform (Content API)
+- **Deployment**: Vercel (recommended)
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone & Install
+
+```bash
+git clone <your-repo-url>
+cd lexora-website
+npm install
+```
+
+### 2. Environment Variables
+
+Copy the example env file and add your API key:
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local`:
+
+```
+NEXT_PUBLIC_GUARDIAN_API_KEY=your_real_key_here
+```
+
+#### How to get a free Guardian API key
+
+1. Go to → [https://open-platform.theguardian.com/access/](https://open-platform.theguardian.com/access/)
+2. Choose **Developer** key (free, non-commercial)
+3. Fill in the short form (name, email, brief description)
+4. Key is sent immediately by email
+
+> During development you can temporarily use the public test key `test`  
+> (rate-limited and some fields may be stripped).
+
+### 3. Run locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Build & Deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+Or push to GitHub and import the repo on [Vercel](https://vercel.com) — it will detect Next.js automatically.
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure (Phase 0)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+lexora-website/
+├── public/                 # static assets
+├── src/
+│   ├── app/
+│   │   ├── globals.css     # Tailwind + design tokens (maroon, gold…)
+│   │   ├── layout.tsx      # Root layout + metadata
+│   │   └── page.tsx        # Homepage (placeholder for now)
+│   ├── components/         # (to be added in Phase 1+)
+│   ├── lib/
+│   │   └── guardian.ts     # Guardian API helper + date formatter
+│   └── types/
+│       └── news.ts         # TypeScript interfaces for API & cards
+├── .env.example
+├── next.config.ts
+├── package.json
+├── tailwind / postcss config
+└── README.md
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Design Notes
 
-## Deploy on Vercel
+- Primary color: Maroon `#8B1A1A`
+- Accent: Gold / Amber
+- Figma reference: [Web Test Case](https://www.figma.com/design/6XKkcfeMx3iEAVxmGiJAS6/Web-Test-Case)
+- Mobile breakpoints follow the brief:  
+  - Desktop ≥ 1280px → 3 cards  
+  - Tablet 768–1279px → 2 cards  
+  - Mobile < 768px → 1 card + hamburger
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Known Issues / Decisions
+- Using the free Developer tier of The Guardian API (500 calls/day is more than enough).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Roadmap Status
+
+- [x] **Phase 0** — Project setup, TypeScript, Tailwind, API helper, types, README
+- [ ] Phase 1 — Static homepage layout (Navbar, Hero, Statutory cards, Anniversary, Footer)
+- [ ] Phase 2 — News carousel + real API data + loading/error states
+- [ ] Phase 3 — Full responsive polish
+- [ ] Phase 4 — Bonus (skeletons, autoplay, a11y, animations)
+
+## License
+
+This is a test submission for the Web Intern position.
