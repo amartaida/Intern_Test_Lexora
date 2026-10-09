@@ -1,11 +1,27 @@
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import StatutoryFunctions from "@/components/StatutoryFunctions";
+import AnniversaryBanner from "@/components/AnniversaryBanner";
+import RoadTo2027 from "@/components/RoadTo2027";
+import LegalSupport from "@/components/LegalSupport";
+import NewsSection from "@/components/NewsSection";
+import CareerCTA from "@/components/CareerCTA";
+import Footer from "@/components/Footer";
+
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-white px-4">
-      <div className="max-w-2xl text-center space-y-6">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#8B1A1A]">
-          Lexora of Singapore
-        </h1>
-      </div>
-    </main>
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <StatutoryFunctions />
+        <AnniversaryBanner />
+        <RoadTo2027 />
+        <LegalSupport />
+        <NewsSection />
+        <CareerCTA />
+      </main>
+      <Footer />
+    </>
   );
 }
