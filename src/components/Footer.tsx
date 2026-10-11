@@ -4,8 +4,8 @@ export default function Footer() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-10 lg:py-12">
         <div className="flex justify-center mb-6">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-[#8B1A1A] flex items-center justify-center rounded-sm">
-              <span className="text-white font-bold text-lg">L</span>
+            <div className="relative w-10 h-10 overflow-hidden rounded-sm">
+              <img src="/images/logo.png" alt="Lexora" className="w-full h-full object-cover object-left" />
             </div>
             <div className="leading-tight">
               <span className="block text-[11px] font-bold tracking-wider text-white uppercase">LEXORA</span>

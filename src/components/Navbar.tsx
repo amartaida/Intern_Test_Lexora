@@ -43,8 +43,8 @@ export default function Navbar() {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
           <div className="flex items-center justify-between h-16 lg:h-20">
             <Link href="/" className="flex items-center gap-2 shrink-0">
-              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-[#8B1A1A] flex items-center justify-center rounded-sm">
-                <span className="text-white font-bold text-lg">L</span>
+              <div className="relative w-10 h-10 lg:w-12 lg:h-12 overflow-hidden rounded-sm">
+                <img src="/images/logo.png" alt="Lexora" className="w-full h-full object-cover object-left" />
               </div>
               <div className="hidden sm:block leading-tight">
                 <span className="block text-[11px] font-bold tracking-wider text-gray-800 uppercase">

@@ -1,8 +1,10 @@
+import Image from "next/image";
+
 export default function CareerCTA() {
   return (
     <section className="relative overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[280px]">
-        {/* Left – light panel */}
+        {/* Left */}
         <div className="bg-gray-100 flex items-center px-6 sm:px-10 lg:px-16 py-12">
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 bg-[#C9A227]/20 flex items-center justify-center shrink-0 mt-1">
@@ -30,36 +32,21 @@ export default function CareerCTA() {
           </div>
         </div>
 
-        {/* Right – magenta panel with phone mockup */}
-        <div className="relative bg-[#8B1A1A] flex items-center justify-center py-12 overflow-hidden">
-          {/* Diagonal cut */}
+        {/* Right – magenta + phone */}
+        <div className="relative bg-[#8B1A1A] flex items-center justify-center py-12 overflow-hidden min-h-[280px]">
           <div
             className="absolute left-0 top-0 bottom-0 w-16 bg-gray-100 hidden lg:block"
             style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
           />
 
-          {/* Phone placeholder */}
-          <div className="relative z-10 w-36 h-64 bg-gray-900 rounded-2xl border-4 border-gray-800 shadow-2xl flex flex-col items-center justify-center">
-            <div className="w-28 h-48 bg-white rounded-lg flex flex-col items-center justify-center p-3">
-              <div className="w-10 h-10 bg-[#8B1A1A] rounded mb-2" />
-              <span className="text-[8px] font-bold text-gray-800 text-center leading-tight">
-                Rajah & Tann
-                <br />
-                Asia
-              </span>
-            </div>
-          </div>
-
-          {/* Floating icons */}
-          <div className="absolute top-8 right-10 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-            </svg>
-          </div>
-          <div className="absolute bottom-10 right-16 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
+          <div className="relative z-10 w-40 h-72">
+            <Image
+              src="/images/phone-hand.png"
+              alt="Mobile career app"
+              fill
+              className="object-contain"
+              sizes="160px"
+            />
           </div>
         </div>
       </div>
