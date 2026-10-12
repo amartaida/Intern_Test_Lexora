@@ -8,16 +8,16 @@ export default function AnniversaryBanner() {
           src="/images/anniversary-group.jpg"
           alt="Lexora members celebrating 60th anniversary"
           fill
-          className="object-cover object-center"
+          className="object-cover object-center img-grayscale"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-black/50" />
 
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="relative">
-            <div className="bg-[#8B1A1A] px-8 sm:px-12 lg:px-16 py-4 sm:py-5 flex items-center gap-3 sm:gap-5 shadow-2xl relative">
+            <div className="bg-[#AA0433] px-8 sm:px-12 lg:px-16 py-4 sm:py-5 flex items-center gap-3 sm:gap-5 shadow-2xl relative">
               <div
-                className="absolute left-0 top-0 bottom-0 w-6 sm:w-8 bg-[#8B1A1A]"
+                className="absolute left-0 top-0 bottom-0 w-6 sm:w-8 bg-[#AA0433]"
                 style={{
                   clipPath: "polygon(100% 0, 0 50%, 100% 100%)",
                   transform: "translateX(-100%)",
@@ -33,7 +33,7 @@ export default function AnniversaryBanner() {
                 Anniversary
               </span>
               <div
-                className="absolute right-0 top-0 bottom-0 w-6 sm:w-8 bg-[#8B1A1A]"
+                className="absolute right-0 top-0 bottom-0 w-6 sm:w-8 bg-[#AA0433]"
                 style={{
                   clipPath: "polygon(0 0, 100% 50%, 0 100%)",
                   transform: "translateX(100%)",

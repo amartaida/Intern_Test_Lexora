@@ -58,11 +58,11 @@ export default function Navbar() {
 
             <div className="flex items-center gap-4 lg:gap-6">
               <div className="hidden md:flex items-center gap-3 text-gray-600">
-                <a href="#" aria-label="Facebook" className="hover:text-[#8B1A1A] text-sm font-medium">f</a>
-                <a href="#" aria-label="Instagram" className="hover:text-[#8B1A1A] text-sm font-medium">ig</a>
-                <a href="#" aria-label="LinkedIn" className="hover:text-[#8B1A1A] text-sm font-medium">in</a>
+                <a href="#" aria-label="Facebook" className="hover:text-[#AA0433] text-sm font-medium">f</a>
+                <a href="#" aria-label="Instagram" className="hover:text-[#AA0433] text-sm font-medium">ig</a>
+                <a href="#" aria-label="LinkedIn" className="hover:text-[#AA0433] text-sm font-medium">in</a>
                 <span className="text-gray-300 mx-1">|</span>
-                <a href="#contact" className="text-xs font-semibold tracking-wider text-gray-700 hover:text-[#8B1A1A] uppercase">
+                <a href="#contact" className="text-xs font-semibold tracking-wider text-gray-700 hover:text-[#AA0433] uppercase">
                   CONTACT US
                 </a>
               </div>
@@ -70,7 +70,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setIsOpen(true)}
-                className="p-2 text-gray-700 hover:text-[#8B1A1A]"
+                className="p-2 text-gray-700 hover:text-[#AA0433]"
                 aria-label="Open menu"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,9 +85,9 @@ export default function Navbar() {
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex">
           <div className="hidden lg:block w-1/3 relative bg-gray-900">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#8B1A1A]/80 to-black/70" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#AA0433]/80 to-black/70" />
             <div className="absolute top-6 left-6">
-              <div className="w-12 h-12 bg-[#8B1A1A] flex items-center justify-center rounded-sm opacity-90">
+              <div className="w-12 h-12 bg-[#AA0433] flex items-center justify-center rounded-sm opacity-90">
                 <span className="text-white font-bold text-lg">L</span>
               </div>
             </div>
@@ -139,8 +139,8 @@ export default function Navbar() {
                       onClick={() => setActiveMenu(item.label)}
                       className={`block text-left text-lg lg:text-xl font-semibold tracking-wide py-1.5 transition-colors ${
                         activeMenu === item.label
-                          ? "text-[#C9A227]"
-                          : "text-white hover:text-[#C9A227]"
+                          ? "text-[#C4A35A]"
+                          : "text-white hover:text-[#C4A35A]"
                       }`}
                     >
                       {item.label}
