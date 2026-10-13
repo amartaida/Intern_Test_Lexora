@@ -1,86 +1,70 @@
 import Image from "next/image";
+import ArrowLink from "./ui/ArrowLink";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[85vh] lg:min-h-screen flex items-center overflow-hidden bg-[#F9F9F9]">
-      {/* Soft skyline background with gray overlay like Figma */}
-      <Image
-        src="/images/singapore-skyline.jpg"
-        alt=""
-        fill
-        className="object-cover object-center img-grayscale-soft opacity-40"
-        priority
-        sizes="100vw"
-      />
-      <div className="absolute inset-0 bg-[#DEE2E6]/50" />
-      <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/40 to-transparent" />
-
-      {/* Magenta geometric shapes (Figma #760525 / #AA0433) */}
-      <div
-        className="absolute top-0 left-0 w-[48%] h-full z-[1]"
-        style={{
-          background: "linear-gradient(135deg, #760525 0%, #AA0433 100%)",
-          clipPath: "polygon(0 0, 70% 0, 38% 100%, 0 100%)",
-        }}
-      />
-      {/* Secondary accent shape */}
-      <div
-        className="absolute bottom-0 left-[8%] w-[22%] h-[55%] z-[1] opacity-90"
-        style={{
-          background: "#AA0433",
-          clipPath: "polygon(20% 0, 100% 15%, 85% 100%, 0 100%)",
-        }}
-      />
-
-      {/* Lady Justice – grayscale metallic look like reference */}
-      <div className="absolute left-0 bottom-0 w-[48%] h-[95%] z-[2] hidden lg:block pointer-events-none">
+    <section id="top" aria-labelledby="hero-title" className="relative h-[900px]">
+      {/* Background skyline + tints */}
+      <div className="absolute inset-0 overflow-hidden">
         <Image
-          src="/images/lady-justice.png"
-          alt="Lady Justice"
+          src="/images/hero-skyline.webp"
+          alt=""
           fill
-          className="object-contain object-bottom img-grayscale"
-          sizes="48vw"
           priority
+          sizes="100vw"
+          className="object-cover object-[50%_7%]"
         />
+        <div className="absolute inset-0 bg-fog/50" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 w-full pt-24 pb-16 lg:pt-32 lg:pb-24">
-        <div className="lg:ml-[48%] max-w-xl">
-          <h1 className="font-heading text-4xl sm:text-5xl lg:text-[54px] text-gray-900 mb-6">
-            BECOME AN
-            <br />
-            <span className="text-[#AA0433]">AFFILIATE</span> OF THE
-            <br />
-            LEXORA
+      {/* Crimson glow, bottom-right (exact gradient vector from the mockup) */}
+      <svg className="absolute right-0 top-0 h-[900px] w-[1440px]" viewBox="0 0 1440 900" aria-hidden="true">
+        <defs>
+          <linearGradient id="hero-glow" gradientUnits="userSpaceOnUse" x1="1398.5" y1="1022" x2="1106.5" y2="683.5">
+            <stop stopColor="#EB2517" />
+            <stop offset="0.628" stopColor="#AA0433" stopOpacity="0.219" />
+            <stop offset="1" stopColor="#EB2517" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <rect width="1440" height="900" fill="url(#hero-glow)" />
+      </svg>
+
+      {/* Left-anchored art: sits against the viewport's left edge at any screen width */}
+      {/* Crimson diagonal ribbon behind the statue */}
+      <svg className="absolute left-0 top-0 h-[900px] w-[1440px]" viewBox="0 0 1440 900" aria-hidden="true">
+        <g opacity="0.85">
+          <path d="M238 400.5L-13.3127 179V353.693L147.942 501.51L238 400.5Z" fill="#760525" />
+          <path d="M258.134 549.887C310.909 497.112 281.426 441.488 258.134 418.195L233.212 396.694L-16 670.828V848.209C52.0855 769.373 205 603.021 258.134 549.887Z" fill="#AA0433" />
+        </g>
+      </svg>
+
+      <Image
+        src="/images/hero-statue.webp"
+        alt="Statue of Lady Justice holding scales and a sword"
+        width={598}
+        height={916}
+        priority
+        className="absolute left-[55px] top-[-16px] h-[916px] w-[598px] max-w-none"
+      />
+
+      <div className="relative mx-auto h-full max-w-[1440px]">
+        <div className="absolute right-[198px] top-[266px] w-[565px]">
+          <h1 id="hero-title" className="whitespace-nowrap font-heading text-[72px] font-medium uppercase leading-[86.4px] text-charcoal">
+            <span className="block">Become an</span>
+            <span className="block pl-[94px]">
+              <span className="text-crimson">Affiliate</span> of the
+            </span>
+            <span className="block">Lexora</span>
           </h1>
-          <p className="font-body text-gray-600 mb-8 max-w-md">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu
-            turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus
-            nec fringilla accumsan, risus sem sollicitudin lacus.
+          <p className="mt-10 text-[18px] leading-[30.6px]">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis
+            tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit
+            sed risus. Sed dignissim, metus.
           </p>
-          <a
-            href="#functions"
-            className="inline-flex items-center gap-2 text-sm font-bold tracking-wider text-gray-900 hover:text-[#AA0433] transition-colors uppercase group"
-          >
-            FIND LAWYER
-            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
+          <ArrowLink href="#legal-support" className="mt-[33px]">
+            Find lawyer
+          </ArrowLink>
         </div>
-      </div>
-
-      {/* Right dark gray bar (Figma #404040) with hamburger area */}
-      <div className="absolute top-0 right-0 w-16 lg:w-32 h-full bg-[#404040] z-[5] hidden md:block" />
-
-      {/* Scroll down */}
-      <div className="absolute right-4 lg:right-10 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-2 z-10">
-        <span className="text-[10px] font-semibold tracking-[0.2em] text-white/70 uppercase" style={{ writingMode: "vertical-rl" }}>
-          SCROLL DOWN
-        </span>
-        <div className="w-px h-12 bg-white/30" />
-        <div className="w-2 h-2 rounded-full border border-white/50" />
       </div>
     </section>
   );

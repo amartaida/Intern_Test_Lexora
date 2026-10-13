@@ -1,64 +1,43 @@
-"use client";
-
-const items = [
-  { tag: "Lawyer", label: "Feedback on Law Reforms" },
-  { tag: "Public", label: "Alternative Dispute Resolution Schemes" },
-  { tag: "Lawyer", label: "Members' Support Schemes" },
-  { tag: "Lawyer", label: "Future Lawyering Research Portal" },
-];
+import { LEGAL_SUPPORT } from "@/data/content";
+import { Arrow } from "./ui/Icons";
+import ArrowLink from "./ui/ArrowLink";
+import SectionLabel from "./ui/SectionLabel";
 
 export default function LegalSupport() {
   return (
-    <section className="bg-white py-16 sm:py-20">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-          <div>
-            <p className="text-[#AA0433] font-semibold tracking-wider uppercase text-sm mb-2 font-body">
-              LEGAL SUPPORT
-            </p>
-          </div>
+    <section id="legal-support" aria-labelledby="legal-title" className="relative px-[60px] pb-[32px] pt-[46px]">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[-39px] top-0 h-[687px] w-[548px] bg-[url('/images/texture-wash.webp')] bg-[length:548px_767px] bg-[position:0_-80px] bg-no-repeat opacity-60 [mask-composite:intersect] [mask-image:linear-gradient(to_right,#000_40%,transparent_100%),linear-gradient(to_bottom,transparent_0,#000_18%,#000_72%,transparent_100%)]"
+      />
 
-          <div>
-            <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl text-gray-900 mb-8">
-              Guiding You Through Every Steps
-            </h2>
+      <div className="relative mx-auto max-w-[1320px]">
+        <div className="flex items-baseline justify-between">
+          <SectionLabel>Legal support</SectionLabel>
+          <h2 id="legal-title" className="font-heading text-[32px] font-normal uppercase leading-[43px]">
+            Guiding you through every step
+          </h2>
+        </div>
 
-            <ul className="space-y-3">
-              {items.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href="#"
-                    className="flex items-center gap-0 group bg-gray-100 text-gray-700 hover:bg-[#927642] hover:text-white transition-colors duration-300"
-                  >
-                    <span className="shrink-0 w-20 sm:w-24 text-center text-xs font-bold py-3.5 bg-gray-800 text-white group-hover:bg-[#7A6235] transition-colors font-body">
-                      {item.tag}
-                    </span>
-                    <span className="flex-1 px-4 py-3.5 text-sm font-medium font-body flex items-center justify-between">
-                      {item.label}
-                      <svg
-                        className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity ml-2 shrink-0"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
+        <ul className="ml-[142px] mt-[84px] w-[1026px] space-y-[30px]">
+          {LEGAL_SUPPORT.map((item) => (
+            <li key={item.title} className="group flex h-[60px] gap-[30px]">
+              <span className="flex w-[105px] shrink-0 items-center justify-center bg-slate font-heading text-[22px] font-normal text-paper">
+                {item.audience}
+              </span>
+              <a
+                href="#legal-support"
+                className="flex flex-1 items-center justify-between bg-row pl-[28px] pr-[30px] text-[18px] transition-colors duration-300 group-hover:bg-gold group-hover:font-semibold group-hover:text-paper group-has-[:focus-visible]:bg-gold group-has-[:focus-visible]:font-semibold group-has-[:focus-visible]:text-paper"
+              >
+                {item.title}
+                <Arrow className="opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-has-[:focus-visible]:opacity-100" />
+              </a>
+            </li>
+          ))}
+        </ul>
 
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 mt-8 text-xs font-bold tracking-wider uppercase text-[#927642] hover:text-[#AA0433] transition-colors font-body"
-            >
-              EXPLORE MORE SUPPORT
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-          </div>
+        <div className="mt-[87px] flex justify-center">
+          <ArrowLink href="#legal-support">Explore more support</ArrowLink>
         </div>
       </div>
     </section>

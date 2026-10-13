@@ -1,112 +1,85 @@
 import Image from "next/image";
+import { STATUTORY_CARDS } from "@/data/content";
+import { Arrow, Quote } from "./ui/Icons";
+import SectionLabel from "./ui/SectionLabel";
 
-const cards = [
-  {
-    num: "01",
-    title: "Firm Closure Dates",
-    description: "Lorem ipsum dolor sit amet Lorem ipsum",
-    image: "/images/calendar.jpg",
-  },
-  {
-    num: "02",
-    title: "Pro Bono Services",
-    description: "Lorem ipsum dolor sit amet Lorem ipsum",
-    image: "/images/gavel.jpg",
-  },
-  {
-    num: "03",
-    title: "Members' Library",
-    description: "Lorem ipsum dolor sit amet Lorem ipsum",
-    image: "/images/book.jpg",
-  },
-  {
-    num: "04",
-    title: "Specialists Directory",
-    description: "Lorem ipsum dolor sit amet Lorem ipsum",
-    image: "/images/filing-cabinets.jpg",
-  },
-];
-
+/*
+ * Cards are idle by default. The highlighted state only appears while a card is
+ * hovered or keyboard-focused (:focus-visible) — pure CSS, nothing stays "stuck" active.
+ */
 export default function StatutoryFunctions() {
   return (
-    <section id="functions" className="relative bg-white">
-      {/* Centered intro text */}
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 pt-16 sm:pt-20 lg:pt-24 pb-12 lg:pb-16">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-[#AA0433] font-semibold tracking-wider uppercase text-sm mb-3 font-body flex items-center justify-center gap-2">
-            <span className="text-2xl leading-none">&ldquo;</span>
-            WHAT WE DO
-          </p>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-[54px] text-gray-900 mb-5">
-            We Carry Out Various Statutory Functions
-          </h2>
-          <p className="font-body text-gray-600">
-            The mission of the Lexora is to serve its members and the public by
-            sustaining an independent bar which upholds the rule of law and
-            ensures access to justice. As part of its mission in ensuring access
-            to justice for the needy, the Lexora has established Pro Bono SG…{" "}
-            <a href="#" className="text-[#AA0433] font-semibold hover:underline">
-              Read more
-            </a>
-          </p>
+    <section id="what-we-do" aria-labelledby="wwd-title" className="relative pt-[121px]">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[451px] bg-[url('/images/texture-stain-left.webp')] bg-[length:1436px_451px] bg-[position:2px_0] bg-no-repeat opacity-60 [mask-image:linear-gradient(to_right,#000_0%,#000_15%,transparent_60%)]"
+      />
+
+      <div className="relative mx-auto w-[932px]">
+        <div className="relative">
+          <Quote className="absolute -left-[52px] top-[10px] text-charcoal" />
+          <SectionLabel>What we do</SectionLabel>
         </div>
+        <h2 id="wwd-title" className="mt-[26px] whitespace-nowrap font-heading text-[54px] font-normal uppercase leading-[64.8px]">
+          We carry out various statutory functions
+        </h2>
+        <p className="mt-[21px] max-w-[960px] text-[18px] leading-[30.6px]">
+          The mission of the Lexora is to serve its members and the public by sustaining an independent bar which
+          upholds the rule of law and ensures access to justice. As part of its mission in ensuring access to justice
+          for the needy, the Lexora has established Pro Bono SG&hellip;{" "}
+          <a href="#what-we-do" className="font-semibold text-gold-ink">Read more</a>
+        </p>
       </div>
 
-      {/* Cards – light by default, Pro Bono (dark + gold) style on hover */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        {cards.map((card) => (
-          <div
-            key={card.num}
-            className="relative group min-h-[300px] lg:min-h-[340px] flex flex-col justify-end overflow-hidden cursor-pointer text-gray-900"
-          >
-            <Image
-              src={card.image}
-              alt={card.title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105 img-grayscale"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            />
-
-            {/* Default: light gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/55 to-white/15 group-hover:opacity-0 transition-opacity duration-350" />
-
-            {/* Hover: dark overlay like Pro Bono card */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-350" />
-
-            {/* Large number watermark */}
-            <span className="absolute top-4 right-4 text-6xl lg:text-7xl font-heading leading-none opacity-20 z-10 text-gray-400 group-hover:text-white/30 transition-colors duration-350">
-              {card.num}
-            </span>
-
-            <div className="relative z-10 p-6 lg:p-8">
-              <span className="text-xs font-semibold tracking-wider font-body text-gray-500 group-hover:text-white/60 transition-colors duration-350">
-                {card.num}
-              </span>
-              <h3 className="font-heading text-lg lg:text-xl mt-1 mb-2 group-hover:text-white transition-colors duration-350">
-                {card.title}
-              </h3>
-              <p className="text-sm leading-relaxed mb-4 font-body text-gray-600 group-hover:text-white/80 transition-colors duration-350 line-clamp-2">
-                {card.description}
-              </p>
-
-              {/* Default: simple arrow */}
-              <span className="inline-flex items-center text-gray-500 group-hover:hidden transition-colors mt-1">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+      <ul className="relative mt-[98px] grid grid-cols-4 border-t border-[#c9ced3]">
+        {STATUTORY_CARDS.map((card) => (
+          <li key={card.id} className="group border-r border-[#c9ced3] last:border-r-0">
+            <a href="#what-we-do" className="block">
+              <div className="relative h-[356px] overflow-hidden">
+                <Image src={card.image} alt="" fill sizes="25vw" className="object-cover" />
+                <div className="absolute inset-0 bg-fog/55 opacity-100 transition-opacity duration-300 group-hover:opacity-0 group-has-[:focus-visible]:opacity-0" />
+                <div className="absolute inset-0 bg-charcoal/80 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-has-[:focus-visible]:opacity-100" />
+                <svg
+                  className="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-has-[:focus-visible]:opacity-100"
+                  viewBox="0 0 360 356"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <linearGradient id={`glow-${card.id}`} gradientUnits="userSpaceOnUse" x1="360" y1="484.5" x2="268" y2="241">
+                      <stop stopColor="#EB2517" />
+                      <stop offset="0.569" stopColor="#AA0433" stopOpacity="0.219" />
+                      <stop offset="1" stopColor="#EB2517" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <rect width="360" height="356" fill={`url(#glow-${card.id})`} />
                 </svg>
-              </span>
 
-              {/* Hover: gold MORE DETAIL button (Pro Bono reference style) */}
-              <span className="hidden group-hover:inline-flex items-center justify-center gap-2 bg-[#927642] text-white text-xs font-bold tracking-wider uppercase px-5 py-3 font-body">
-                MORE DETAIL
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </span>
-            </div>
-          </div>
+                <div className="relative px-[60px] pt-[75px] text-charcoal transition-colors duration-300 group-hover:text-paper group-has-[:focus-visible]:text-paper">
+                  <p className="text-[16px] font-light leading-[24px]">{card.no}</p>
+                  <h3 className="mt-[46px] font-heading text-[26px] font-normal leading-[41.6px]">
+                    {card.title[0]}
+                    <br />
+                    {card.title[1]}
+                  </h3>
+                  {card.description && (
+                    <p className="mt-[6px] max-w-[190px] text-[16px] leading-[29.5px] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-has-[:focus-visible]:opacity-100">
+                      {card.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex h-[94px] items-center border-t border-[#c9ced3] bg-paper px-[60px] text-charcoal transition-colors duration-300 group-hover:bg-gold group-hover:text-paper group-has-[:focus-visible]:bg-gold group-has-[:focus-visible]:text-paper">
+                <span className="mr-0 max-w-0 overflow-hidden whitespace-nowrap text-[18px] font-semibold uppercase tracking-[0.02em] opacity-0 transition-all duration-300 group-hover:mr-[14px] group-hover:max-w-[160px] group-hover:opacity-100 group-has-[:focus-visible]:mr-[14px] group-has-[:focus-visible]:max-w-[160px] group-has-[:focus-visible]:opacity-100">
+                  More detail
+                </span>
+                <Arrow />
+              </div>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }
