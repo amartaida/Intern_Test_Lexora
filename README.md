@@ -99,10 +99,10 @@ lexora-website/
 ## Roadmap Status
 
 - [x] **Phase 0** — Project setup, TypeScript, Tailwind, API helper, types, README
-- [ ] Phase 1 — Static homepage layout (Navbar, Hero, Statutory cards, Anniversary, Footer)
-- [ ] Phase 2 — News carousel + real API data + loading/error states
+- [x] Phase 1 — Static homepage layout (Navbar, Hero, Statutory cards, Anniversary, Footer)
+- [x] Phase 2 — News carousel + real API data + loading/error states
 - [ ] Phase 3 — Full responsive polish
-- [ ] Phase 4 — Bonus (skeletons, autoplay, a11y, animations)
+- [ ] Phase 4 — Bonus (skeletons, a11y, animations)
 
 ## License
 
