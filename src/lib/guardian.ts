@@ -1,68 +1,67 @@
 /**
- * The Guardian Content API helper
+ * The Guardian Content API helper (server-only — imported by /api/news).
  * Docs: https://open-platform.theguardian.com/documentation/
- *
- * Free developer key: https://open-platform.theguardian.com/access/
- * Test key (limited): "test"
  */
-
 import type { GuardianSearchResponse, NewsCardData } from "@/types/news";
+import { formatDate } from "./formatDate";
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_GUARDIAN_API_BASE ||
-  "https://content.guardianapis.com";
+const BASE_URL = process.env.GUARDIAN_API_BASE || "https://content.guardianapis.com";
+// Server-side only (no NEXT_PUBLIC_ prefix) so the key never reaches the browser.
+const API_KEY = process.env.GUARDIAN_API_KEY || "test";
 
-const API_KEY =
-  process.env.NEXT_PUBLIC_GUARDIAN_API_KEY || "test"; // fallback for local dev
+const ENTITIES: Record<string, string> = {
+  "&amp;": "&",
+  "&lt;": "<",
+  "&gt;": ">",
+  "&quot;": '"',
+  "&#39;": "'",
+  "&apos;": "'",
+  "&nbsp;": " ",
+};
 
-/**
- * Format ISO date to "DD MMM YYYY" (e.g. 24 May 2025)
- */
-export function formatGuardianDate(isoDate: string): string {
-  const date = new Date(isoDate);
-  return date.toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
+/** trailText arrives as HTML ("<strong>…</strong> &amp; …") — reduce it to plain text. */
+function toPlainText(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, "")
+    .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)))
+    .replace(/&[a-z]+;|&#39;/gi, (entity) => ENTITIES[entity.toLowerCase()] ?? entity)
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
+export class GuardianError extends Error {}
+
 /**
- * Fetch latest articles suitable for the News Carousel.
- * Requests thumbnail + trailText (excerpt).
+ * Latest articles from the Guardian's Law section (fits a law-society site).
+ * Asks for more than the 6 the brief requires so the carousel has room to scroll,
+ * and drops entries that are missing a title or link.
  */
-export async function fetchNewsArticles(
-  pageSize = 8
-): Promise<NewsCardData[]> {
+export async function fetchNewsArticles(pageSize = 10): Promise<NewsCardData[]> {
   const params = new URLSearchParams({
     "api-key": API_KEY,
-    "page-size": String(pageSize),
+    section: "law",
     "order-by": "newest",
-    "show-fields": "thumbnail,trailText,headline",
+    "page-size": String(pageSize),
+    "show-fields": "thumbnail,trailText",
   });
 
-  const url = `${BASE_URL}/search?${params.toString()}`;
-
-  const res = await fetch(url, {
-    next: { revalidate: 300 }, // cache 5 min on server
+  const res = await fetch(`${BASE_URL}/search?${params}`, {
+    next: { revalidate: 300 }, // cache 5 min on the server, also protects the rate limit
   });
-
-  if (!res.ok) {
-    throw new Error(`Guardian API error: ${res.status} ${res.statusText}`);
-  }
+  if (!res.ok) throw new GuardianError(`Guardian API responded ${res.status}`);
 
   const data: GuardianSearchResponse = await res.json();
+  if (data.response?.status !== "ok") throw new GuardianError("Guardian API returned a non-ok status");
 
-  if (data.response.status !== "ok") {
-    throw new Error("Guardian API returned non-ok status");
-  }
-
-  return data.response.results.map((article) => ({
-    id: article.id,
-    title: article.webTitle,
-    excerpt: article.fields?.trailText?.replace(/<[^>]+>/g, "") || "",
-    date: formatGuardianDate(article.webPublicationDate),
-    imageUrl: article.fields?.thumbnail || null,
-    url: article.webUrl,
-  }));
+  return data.response.results
+    .filter((a) => a.webTitle && a.webUrl)
+    .map((a) => ({
+      id: a.id,
+      title: a.webTitle,
+      excerpt: toPlainText(a.fields?.trailText ?? ""),
+      category: a.sectionName,
+      date: formatDate(a.webPublicationDate),
+      imageUrl: a.fields?.thumbnail ?? null,
+      url: a.webUrl,
+    }));
 }
