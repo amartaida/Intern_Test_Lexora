@@ -1,11 +1,33 @@
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import StatutoryFunctions from "@/components/StatutoryFunctions";
+import Anniversary from "@/components/Anniversary";
+import RoadTo2027 from "@/components/RoadTo2027";
+import LegalSupport from "@/components/LegalSupport";
+import MediaPress from "@/components/MediaPress";
+import CareerBanner from "@/components/CareerBanner";
+import Footer from "@/components/Footer";
+import PaperShred from "@/components/PaperShred";
+
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-white px-4">
-      <div className="max-w-2xl text-center space-y-6">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#8B1A1A]">
-          Lexora of Singapore
-        </h1>
-      </div>
-    </main>
+    <div className="relative overflow-x-clip">
+      <Header />
+      <main>
+        {/* Hero → What We Do (white tear over hero bottom) */}
+        <Hero />
+        <PaperShred variant={1} />
+        <StatutoryFunctions />
+
+        {/* Anniversary → Road to 2027 (white tear over dark photo) */}
+        <Anniversary />
+        <PaperShred variant={2} />
+        <RoadTo2027 />
+        <LegalSupport />
+        <MediaPress />
+        <CareerBanner />
+      </main>
+      <Footer />
+    </div>
   );
 }
