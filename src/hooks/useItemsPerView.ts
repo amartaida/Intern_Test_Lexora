@@ -12,12 +12,25 @@ function subscribe(onChange: () => void) {
 }
 
 function getSnapshot() {
-  if (window.matchMedia(DESKTOP).matches) return 3;
+  if (window.matchMedia(DESKTOP).matches) return 2;
   if (window.matchMedia(TABLET).matches) return 2;
   return 1;
 }
 
-/** Cards visible at once: 3 (≥1280px), 2 (768–1279px), 1 (<768px). Mirrors the CSS in NewsCarousel. */
+/** Fully visible cards: 2 (≥768px, plus a peeking third on desktop), 1 (<768px, plus a peek). Mirrors the CSS in NewsCarousel. */
 export function useItemsPerView() {
-  return useSyncExternalStore(subscribe, getSnapshot, () => 3);
+  return useSyncExternalStore(subscribe, getSnapshot, () => 2);
+}
+
+function subscribeDesktop(onChange: () => void) {
+  const q = window.matchMedia(DESKTOP);
+  q.addEventListener("change", onChange);
+  return () => q.removeEventListener("change", onChange);
+}
+
+/** True when a partially visible next card is shown (mobile and desktop). */
+export function useHasPeek() {
+  const perView = useItemsPerView();
+  const desktop = useSyncExternalStore(subscribeDesktop, () => window.matchMedia(DESKTOP).matches, () => true);
+  return perView === 1 || desktop;
 }

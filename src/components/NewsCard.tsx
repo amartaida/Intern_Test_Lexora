@@ -28,7 +28,7 @@ export default function NewsCard({ article }: { article: NewsCardData }) {
             src={article.imageUrl!}
             alt=""
             fill
-            sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+            sizes="(min-width: 1280px) 38vw, (min-width: 768px) 50vw, 100vw"
             onError={() => setImageFailed(true)}
             className="object-cover grayscale transition duration-500 ease-out group-hover:grayscale-0 group-has-[:focus-visible]:grayscale-0 [@media(hover:none)]:grayscale-0"
           />
@@ -36,13 +36,13 @@ export default function NewsCard({ article }: { article: NewsCardData }) {
           <ImagePlaceholder />
         )}
       </div>
-      <h3 className="mt-8 line-clamp-2 font-heading text-[clamp(20px,6.6cqw,32px)] font-normal uppercase leading-[1.5]">
+      <h3 className="mt-8 line-clamp-2 font-heading text-[24px] font-normal uppercase leading-[37px] md:text-[clamp(20px,6.6cqw,32px)] md:leading-[1.5]">
         {article.title}
       </h3>
-      <p className="mt-4 text-[clamp(15px,4.1cqw,20px)] font-semibold leading-[1.5]">
+      <p className="mt-4 text-[16px] font-semibold leading-[1.5] md:text-[clamp(15px,4.1cqw,20px)]">
         {article.category} | {article.date}
       </p>
-      <p className="mt-3 line-clamp-3 text-[clamp(15px,3.7cqw,18px)] leading-[1.67]">{article.excerpt}</p>
+      <p className="mt-3 line-clamp-3 text-[17px] leading-[30px] md:text-[clamp(15px,3.7cqw,18px)] md:leading-[1.67]">{article.excerpt}</p>
       <ArrowLink
         href={article.url}
         target="_blank"

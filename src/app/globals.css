@@ -28,7 +28,6 @@
   }
 
   body {
-    min-width: 1280px; /* desktop-only for now — responsive pass is a later phase */
     background: var(--color-paper);
     color: var(--color-charcoal);
     font-family: var(--font-body);
