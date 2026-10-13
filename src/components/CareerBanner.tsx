@@ -15,7 +15,7 @@ export default function CareerBanner() {
       />
 
       <div className="relative mx-auto h-full max-w-[1440px]">
-        <div className="absolute left-[66px] top-[45px] md:left-[120px] xl:left-[209px] xl:top-[49px]">
+        <div data-reveal className="absolute left-[66px] top-[45px] md:left-[120px] xl:left-[209px] xl:top-[49px]">
           <Briefcase className="mb-[22px] text-gold xl:absolute xl:-left-[77px] xl:top-[33px] xl:mb-0" />
           <h2 className="font-heading text-[24px] font-normal leading-[32px] xl:text-[28px]">Support for your career growth</h2>
           <p className="mt-2 max-w-[200px] text-[16px] leading-[20px] md:max-w-[260px] xl:max-w-none xl:text-[18px] xl:leading-[28px]">
@@ -28,7 +28,7 @@ export default function CareerBanner() {
       </div>
 
       {/* Hand + phone — scaled down below xl; at xl it breaks out of the banner upwards */}
-      <div className="absolute left-[calc(50%-94px)] top-[221px] h-[419px] w-[310px] origin-top-left scale-[0.8] [clip-path:inset(-300px_-300px_62px_-300px)] xl:left-auto xl:right-[156px] xl:top-[-157px] xl:scale-100">
+      <div data-reveal="fade" data-reveal-delay="200" className="absolute left-[calc(50%-94px)] top-[221px] h-[419px] w-[310px] origin-top-left scale-[0.8] [clip-path:inset(-300px_-300px_62px_-300px)] xl:left-auto xl:right-[156px] xl:top-[-157px] xl:scale-100">
         <Image src="/images/career-hand.webp" alt="" width={310} height={419} className="h-full w-full" />
 
         {/* Phone screen: the Featured Jobs screenshot from the mockup */}

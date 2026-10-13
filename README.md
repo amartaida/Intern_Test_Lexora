@@ -16,7 +16,7 @@ Implementation of the Lexora of Singapore homepage mockup with a live News carou
 ### 1. Clone & Install
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/amartaida/Intern_Test_Lexora-.git
 cd lexora-website
 npm install
 ```
@@ -81,6 +81,12 @@ The Media & Press section is the main focus of the test.
 - **Accessibility**: the carousel and slides use carousel/slide roles, the arrows have `aria-label`s, and off-screen cards are `inert` so keyboard focus cannot reach them.
 - **Images**: grayscale until the card is hovered or focused, then full colour. Touch devices show colour. Remote images are allowed for `**.guim.co.uk` in `next.config.ts`.
 
+## Entrance Animations
+
+- **How it works**: elements marked `data-reveal` fade and rise into place as they scroll into view. `RevealOnScroll.tsx` (one small client component in `page.tsx`) uses a single `IntersectionObserver`; the styles are in `globals.css`. Add `data-reveal="fade"` for fade-only, and `data-reveal-delay="100"` (ms) to stagger siblings such as the statutory cards and the legal support rows.
+- **Where**: the What We Do text and cards, the anniversary banner, Road to 2027 (heading, photo, text), Legal Support, Media & Press, the career banner and the footer. The hero plays a one-off fade-up on load, in CSS only.
+- **Safe by default**: the server-rendered page is fully visible. Elements are hidden only after JavaScript runs and only if they are below the fold, so nothing flashes and nothing stays hidden if JavaScript is off. Users who prefer reduced motion get no animation at all.
+
 ## Project Structure
 
 ```
@@ -96,6 +102,7 @@ lexora-website/
 │   │   ├── Header.tsx (top bar + menu), Hero.tsx, StatutoryFunctions.tsx, Anniversary.tsx,
 │   │   │   RoadTo2027.tsx, LegalSupport.tsx, CareerBanner.tsx, Footer.tsx
 │   │   ├── PaperShred.tsx    # torn-paper section transitions
+│   │   ├── RevealOnScroll.tsx# scroll entrance animations
 │   │   ├── MediaPress.tsx    # section wrapper
 │   │   ├── NewsCarousel.tsx  # carousel, drag, autoplay, states
 │   │   ├── NewsCard.tsx
@@ -150,13 +157,13 @@ lexora-website/
 - [x] **Phase 2** — News carousel, Guardian API, loading/error/empty states
 - [x] **Phase 3** — Responsive layout (tablet and mobile) and mobile menu
 - [x] **Phase 3b** — Desktop peek carousel, drag / swipe sliding, single-card counter
-- [ ] **Phase 4** — Entrance animations (the only bonus item left)
+- [x] **Phase 4** — Entrance animations (all bonus items are now done)
 
-Already done from the bonus list: skeleton cards, autoplay with pause on hover (and while dragging), accessible carousel controls, and TypeScript.
+All bonus items are done: skeleton cards, autoplay with pause on hover (and while dragging), accessible carousel controls, TypeScript, and scroll / entrance animations.
 
 ## Deployment
 
-Live URL: _add the Vercel / Netlify link here after deploying._
+Live URL: https://lexora.jahvi.online/  or  https://intern-test-lexora.vercel.app/
 
 ## License
 

@@ -8,10 +8,12 @@ import MediaPress from "@/components/MediaPress";
 import CareerBanner from "@/components/CareerBanner";
 import Footer from "@/components/Footer";
 import PaperShred from "@/components/PaperShred";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 export default function Home() {
   return (
     <div className="relative overflow-x-clip">
+      <RevealOnScroll />
       <Header />
       <main>
         {/* Hero → What We Do (white tear over hero bottom) */}

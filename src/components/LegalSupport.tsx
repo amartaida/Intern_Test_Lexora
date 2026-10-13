@@ -12,7 +12,7 @@ export default function LegalSupport() {
       />
 
       <div className="relative mx-auto max-w-[1320px]">
-        <div className="flex flex-col gap-[22px] xl:flex-row xl:items-baseline xl:justify-between">
+        <div data-reveal className="flex flex-col gap-[22px] xl:flex-row xl:items-baseline xl:justify-between">
           <SectionLabel>Legal support</SectionLabel>
           <h2 id="legal-title" className="max-w-[250px] font-heading text-[24px] font-normal uppercase leading-[36px] md:max-w-none md:text-[28px] xl:text-[32px] xl:leading-[43px]">
             Guiding you through every step
@@ -20,8 +20,8 @@ export default function LegalSupport() {
         </div>
 
         <ul className="mt-[54px] w-full space-y-[20px] xl:ml-[142px] xl:mt-[84px] xl:w-[1026px] xl:space-y-[30px]">
-          {LEGAL_SUPPORT.map((item) => (
-            <li key={item.title} className="group flex h-[50px] gap-[15px] xl:h-[60px] xl:gap-[30px]">
+          {LEGAL_SUPPORT.map((item, i) => (
+            <li key={item.title} data-reveal data-reveal-delay={i * 100} className="group flex h-[50px] gap-[15px] xl:h-[60px] xl:gap-[30px]">
               <span className="flex w-[75px] shrink-0 items-center justify-center bg-slate font-heading text-[16px] font-normal text-paper md:w-[105px] md:text-[22px]">
                 {item.audience}
               </span>
@@ -36,7 +36,7 @@ export default function LegalSupport() {
           ))}
         </ul>
 
-        <div className="mt-[50px] flex justify-center xl:mt-[87px]">
+        <div data-reveal className="mt-[50px] flex justify-center xl:mt-[87px]">
           <ArrowLink href="#legal-support">Explore more support</ArrowLink>
         </div>
       </div>
