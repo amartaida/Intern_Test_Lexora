@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHasPeek, useItemsPerView } from "@/hooks/useItemsPerView";
 import { useNews } from "@/hooks/useNews";
 import NewsCard from "./NewsCard";
@@ -8,7 +8,8 @@ import NewsCardSkeleton from "./NewsCardSkeleton";
 import { Arrow } from "./ui/Icons";
 
 const AUTOPLAY_MS = 5000;
-const SWIPE_PX = 50;
+const DRAG_START_PX = 6; // movement before a press becomes a drag (keeps plain clicks working)
+const SWIPE_PX = 50; // minimum drag distance that counts as a flick even if less than a card
 
 /*
  * Layout is pure CSS: --n (cards per view), --gap and --peek change at the md / xl breakpoints.
@@ -49,7 +50,10 @@ export default function NewsCarousel() {
   const hasPeek = useHasPeek();
   const [requestedIndex, setRequestedIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [dragX, setDragX] = useState(0);
+  const [dragging, setDragging] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const drag = useRef({ pointerId: -1, startX: 0, active: false, moved: false, justDragged: false });
 
   const articles = state.status === "success" ? state.articles : [];
   const maxIndex = Math.max(0, articles.length - perView);
@@ -57,6 +61,53 @@ export default function NewsCarousel() {
   const index = Math.min(requestedIndex, maxIndex);
 
   const goTo = (i: number) => setRequestedIndex(Math.min(Math.max(i, 0), maxIndex));
+
+  /** Distance in px from one card's left edge to the next (card width + gap). */
+  const measureStep = () => {
+    const track = trackRef.current;
+    const first = track?.children[0] as HTMLElement | undefined;
+    const second = track?.children[1] as HTMLElement | undefined;
+    if (!first) return 0;
+    return second ? second.offsetLeft - first.offsetLeft : first.offsetWidth;
+  };
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (loading || maxIndex === 0) return;
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    drag.current = { pointerId: e.pointerId, startX: e.clientX, active: true, moved: false, justDragged: false };
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    if (!d.active || e.pointerId !== d.pointerId) return;
+    let dx = e.clientX - d.startX;
+    if (!d.moved) {
+      if (Math.abs(dx) < DRAG_START_PX) return;
+      d.moved = true;
+      setDragging(true);
+      setPaused(true);
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
+    // Rubber-band when pulling past the first / last card.
+    if ((index === 0 && dx > 0) || (index >= maxIndex && dx < 0)) dx *= 0.3;
+    setDragX(dx);
+  };
+
+  const endDrag = (e: React.PointerEvent<HTMLDivElement>, cancelled = false) => {
+    const d = drag.current;
+    if (!d.active || e.pointerId !== d.pointerId) return;
+    d.active = false;
+    if (!d.moved) return;
+    d.justDragged = true; // swallow the click that follows a drag
+    const dx = cancelled ? 0 : e.clientX - d.startX;
+    const step = measureStep() || 1;
+    let moves = Math.round(-dx / step);
+    if (moves === 0 && Math.abs(dx) > SWIPE_PX) moves = dx < 0 ? 1 : -1;
+    setDragging(false);
+    setDragX(0);
+    setPaused(false);
+    goTo(index + moves);
+  };
 
   // Autoplay: loops, pauses on hover / focus, and is off for reduced-motion users.
   useEffect(() => {
@@ -88,6 +139,10 @@ export default function NewsCarousel() {
   }
 
   const loading = state.status === "loading";
+  const rangeStart = index + 1;
+  const rangeEnd = Math.min(index + perView, articles.length);
+  // "6 of 10" when a single card is in view, "1–2 of 10" when several are.
+  const rangeLabel = rangeStart === rangeEnd ? `${rangeStart}` : `${rangeStart}–${rangeEnd}`;
   const items = loading ? [0, 1, 2] : articles;
 
   return (
@@ -102,21 +157,32 @@ export default function NewsCarousel() {
       onBlur={() => setPaused(false)}
     >
       <div
-        className="-mx-1 touch-pan-y overflow-hidden px-1 max-md:-mr-[30px] xl:mr-0"
-        onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
-        onTouchEnd={(e) => {
-          if (touchStartX === null) return;
-          const dx = e.changedTouches[0].clientX - touchStartX;
-          if (Math.abs(dx) > SWIPE_PX) goTo(index + (dx < 0 ? 1 : -1));
-          setTouchStartX(null);
+        className={`-mx-1 touch-pan-y select-none overflow-hidden px-1 max-md:-mr-[30px] xl:mr-0 ${dragging ? "cursor-grabbing" : "cursor-grab"}`}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={(e) => endDrag(e, true)}
+        onDragStart={(e) => e.preventDefault()}
+        onClickCapture={(e) => {
+          if (drag.current.justDragged) {
+            e.preventDefault();
+            e.stopPropagation();
+            drag.current.justDragged = false;
+          }
         }}
       >
         <div
-          className={`${trackClasses} transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]`}
-          style={{
-            ...trackGap,
-            transform: `translateX(calc(${index} * ((100% - var(--peek) - (var(--n) - 1) * var(--gap)) / var(--n) + var(--gap)) * -1))`,
-          }}
+          ref={trackRef}
+          className={`${trackClasses} news-track ${dragging ? "" : "transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"}`}
+          style={
+            {
+              ...trackGap,
+              "--count": articles.length,
+              // --min-x (desktop only, see globals.css) stops the last card flush with the page gutter.
+              // dragX follows the pointer while dragging and is 0 otherwise.
+              transform: `translateX(calc(max(calc(${index} * ((100% - var(--peek) - (var(--n) - 1) * var(--gap)) / var(--n) + var(--gap)) * -1), var(--min-x, -99999px)) + ${dragX}px))`,
+            } as React.CSSProperties
+          }
           aria-live={paused ? "polite" : "off"}
         >
           {loading
@@ -145,7 +211,7 @@ export default function NewsCarousel() {
       {!loading && (
         <div className="mt-12 flex items-center justify-between xl:pr-[60px]">
           <p className="text-[16px] font-semibold" aria-hidden="true">
-            {index + 1}–{Math.min(index + perView, articles.length)} of {articles.length}
+            {rangeLabel} of {articles.length}
           </p>
           <div className="flex gap-3">
             <CarouselArrow direction="prev" onClick={() => goTo(index - 1)} disabled={index === 0} />

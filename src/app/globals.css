@@ -51,3 +51,13 @@
     }
   }
 }
+
+/* News carousel (desktop peek): clamp the track so the final slide ends flush with the 60px page gutter
+   instead of leaving an empty third column. Uses --n / --gap / --peek from the track's utility classes. */
+@media (min-width: 1280px) {
+  .news-track {
+    --min-x: calc(
+      -1 * max(0px, calc(var(--count, 0) * ((100% - var(--peek) - (var(--n) - 1) * var(--gap)) / var(--n)) + (var(--count, 0) - 1) * var(--gap) - 100% + 60px))
+    );
+  }
+}
