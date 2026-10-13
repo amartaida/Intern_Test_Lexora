@@ -12,16 +12,19 @@ export default function RoadTo2027() {
   return (
     <section id="road-to-2027" aria-labelledby="road-title" className="relative px-[30px] pb-[54px] pt-[70px] md:px-[60px] xl:pt-[86px]">
       <div className="relative mx-auto max-w-[1320px]">
+        <div data-reveal>
         <SectionLabel>Road to 2027</SectionLabel>
         <h2 id="road-title" className="mt-[18px] font-heading text-[24px] font-normal uppercase leading-[37px] md:text-[40px] md:leading-[60px] xl:text-[54px] xl:leading-[81px]">
           Celebrating a legacy,
           <br />
           journeying to the future
         </h2>
+        </div>
         <hr className="mt-[48px] border-0 border-t border-[#cfd1d4] xl:mt-[49px]" />
 
         <div className="mt-[30px] flex flex-col xl:mt-[50px] xl:flex-row xl:gap-[50px]">
           <Image
+            data-reveal
             src="/images/handshake.webp"
             alt="Two professionals shaking hands beside a brass scale of justice"
             width={649}
@@ -48,7 +51,7 @@ export default function RoadTo2027() {
               ))}
             </div>
 
-            <div role="tabpanel" className="order-3 mt-[50px] md:max-w-[570px] xl:absolute xl:bottom-0 xl:left-0 xl:mt-0 xl:w-[570px]">
+            <div role="tabpanel" data-reveal data-reveal-delay="150" className="order-3 mt-[50px] md:max-w-[570px] xl:absolute xl:bottom-0 xl:left-0 xl:mt-0 xl:w-[570px]">
               <h3 className="mb-[17px] text-[18px] font-semibold leading-[22px] xl:mb-[19px] xl:text-[20px] xl:leading-[30px]">{current.heading}</h3>
               <p className="text-[16px] leading-[25px] xl:text-[18px] xl:leading-[30.6px]">{current.body}</p>
             </div>

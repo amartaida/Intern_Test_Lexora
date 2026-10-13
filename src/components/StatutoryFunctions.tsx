@@ -15,7 +15,7 @@ export default function StatutoryFunctions() {
         className="pointer-events-none absolute inset-x-0 top-0 h-[451px] bg-[url('/images/texture-stain-left.webp')] bg-[length:1436px_451px] bg-[position:2px_0] bg-no-repeat opacity-60 [mask-image:linear-gradient(to_right,#000_0%,#000_15%,transparent_60%)]"
       />
 
-      <div className="relative mx-auto px-[30px] md:px-[60px] xl:w-[932px] xl:px-0">
+      <div data-reveal className="relative mx-auto px-[30px] md:px-[60px] xl:w-[932px] xl:px-0">
         <div className="relative pl-[51px] xl:pl-0">
           <Quote className="absolute left-[15px] top-[10px] text-charcoal xl:-left-[52px]" />
           <SectionLabel>What we do</SectionLabel>
@@ -36,8 +36,8 @@ export default function StatutoryFunctions() {
       </div>
 
       <ul className="relative mt-[75px] grid grid-cols-2 border-t border-[#c9ced3] xl:mt-[98px] xl:grid-cols-4">
-        {STATUTORY_CARDS.map((card) => (
-          <li key={card.id} className="group border-b border-r border-[#c9ced3] even:border-r-0 xl:border-b-0 xl:even:border-r xl:last:border-r-0">
+        {STATUTORY_CARDS.map((card, i) => (
+          <li key={card.id} data-reveal data-reveal-delay={(i % 4) * 100} className="group border-b border-r border-[#c9ced3] even:border-r-0 xl:border-b-0 xl:even:border-r xl:last:border-r-0">
             <a href="#what-we-do" className="block">
               <div className="relative h-[182px] overflow-hidden md:h-[300px] xl:h-[356px]">
                 <Image src={card.image} alt="" fill sizes="(min-width: 1280px) 25vw, 50vw" className="object-cover" />

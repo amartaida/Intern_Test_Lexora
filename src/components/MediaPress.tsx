@@ -8,10 +8,10 @@ export default function MediaPress() {
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 top-[113px] bg-news-bg" />
 
       <div className="relative">
-        <h2 id="media-title" className="mx-auto w-fit font-heading text-[16px] font-light uppercase leading-[28px] text-crimson md:text-[24px] underline decoration-1 underline-offset-[5px]">
+        <h2 id="media-title" data-reveal className="mx-auto w-fit font-heading text-[16px] font-light uppercase leading-[28px] text-crimson md:text-[24px] underline decoration-1 underline-offset-[5px]">
           Media &amp; press
         </h2>
-        <div className="mt-[30px] md:mt-[54px]">
+        <div data-reveal data-reveal-delay="150" className="mt-[30px] md:mt-[54px]">
           <NewsCarousel />
         </div>
       </div>

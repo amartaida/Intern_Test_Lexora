@@ -25,7 +25,7 @@ export default function Anniversary() {
         <Image src="/images/anniversary.webp" alt="" fill sizes="100vw" className="object-cover opacity-30" />
       </div>
 
-      <div className="relative mx-auto h-full max-w-[1440px]">
+      <div data-reveal="fade" className="relative mx-auto h-full max-w-[1440px]">
         {/*
           Below xl the title is a centred stack (Celebrating / ribbon with 60th / Anniversary);
           from xl up every piece is placed absolutely on the 1440px artboard (`xl:contents` removes the wrappers).

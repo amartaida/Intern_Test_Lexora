@@ -3,7 +3,7 @@ import { FOOTER_LINKS } from "@/data/navigation";
 
 export default function Footer() {
   return (
-    <footer id="contact" className="bg-slate text-mist md:h-[350px]">
+    <footer id="contact" data-reveal="fade" className="bg-slate text-mist md:h-[350px]">
       <div className="mx-auto flex max-w-[1440px] flex-col items-center px-6 pt-[27px] md:pt-[60px]">
         <Image src="/images/logo.webp" alt="Lexora Law Partners" width={221} height={90} />
         <nav aria-label="Footer" className="mt-[33px]">

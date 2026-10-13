@@ -61,3 +61,39 @@
     );
   }
 }
+
+/* Entrance animations (Phase 4). RevealOnScroll adds .reveal-pending to below-the-fold [data-reveal]
+   elements and removes it when they scroll into view, which plays the transition back to normal. */
+[data-reveal] {
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal].reveal-pending {
+  opacity: 0;
+  transform: translateY(32px);
+}
+[data-reveal="fade"].reveal-pending {
+  transform: none;
+}
+
+/* Hero plays once on load (CSS only, so it needs no JavaScript). */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-in {
+    animation: hero-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s backwards;
+  }
+  .hero-fade {
+    animation: hero-fade 1s ease-out backwards;
+  }
+}

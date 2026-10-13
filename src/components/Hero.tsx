@@ -49,11 +49,11 @@ export default function Hero() {
         width={598}
         height={916}
         priority
-        className="absolute left-[-25px] top-[425px] h-auto w-[300px] max-w-none md:left-0 md:top-[400px] md:w-[440px] xl:left-[55px] xl:top-[-16px] xl:h-[916px] xl:w-[598px]"
+        className="hero-fade absolute left-[-25px] top-[425px] h-auto w-[300px] max-w-none md:left-0 md:top-[400px] md:w-[440px] xl:left-[55px] xl:top-[-16px] xl:h-[916px] xl:w-[598px]"
       />
 
       <div className="relative mx-auto h-full max-w-[1440px]">
-        <div className="absolute left-[30px] right-[108px] top-[135px] md:left-[60px] md:right-[188px] md:top-[150px] xl:left-auto xl:right-[198px] xl:top-[266px] xl:w-[565px]">
+        <div className="hero-in absolute left-[30px] right-[108px] top-[135px] md:left-[60px] md:right-[188px] md:top-[150px] xl:left-auto xl:right-[198px] xl:top-[266px] xl:w-[565px]">
           <h1 id="hero-title" className="whitespace-nowrap font-heading text-[clamp(26px,8.7vw,36px)] font-medium uppercase leading-[1.47] text-charcoal md:text-[56px] md:leading-[1.2] xl:text-[72px] xl:leading-[86.4px]">
             <span className="block">Become an</span>
             <span className="block pl-[4.2vw] md:pl-[73px] xl:pl-[94px]">
