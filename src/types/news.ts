@@ -4,8 +4,6 @@ export interface GuardianFields {
   thumbnail?: string;
   trailText?: string;
   headline?: string;
-  body?: string;
-  byline?: string;
 }
 
 export interface GuardianArticle {
@@ -18,31 +16,25 @@ export interface GuardianArticle {
   webUrl: string;
   apiUrl: string;
   fields?: GuardianFields;
-  isHosted?: boolean;
-  pillarId?: string;
-  pillarName?: string;
 }
 
 export interface GuardianSearchResponse {
   response: {
     status: string;
-    userTier: string;
     total: number;
-    startIndex: number;
     pageSize: number;
-    currentPage: number;
-    pages: number;
-    orderBy: string;
     results: GuardianArticle[];
   };
 }
 
-/** Normalized card data used by the News Carousel */
+/** Normalised card data used by the News carousel (returned by /api/news). */
 export interface NewsCardData {
   id: string;
   title: string;
   excerpt: string;
-  date: string; // formatted as DD MMM YYYY
+  category: string;
+  /** Formatted as DD MMM YYYY, e.g. "24 May 2025" */
+  date: string;
   imageUrl: string | null;
   url: string;
 }

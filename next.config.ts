@@ -4,7 +4,8 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
     formats: ["image/avif", "image/webp"],
-    // Phase 2: add { protocol: "https", hostname: "i.guim.co.uk" } for Guardian thumbnails.
+    // Guardian thumbnails are served from media.guim.co.uk / i.guim.co.uk.
+    remotePatterns: [{ protocol: "https", hostname: "**.guim.co.uk" }],
   },
 };
 
